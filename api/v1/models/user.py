@@ -19,7 +19,6 @@ class CustomAccountManager(BaseUserManager):
         password: str,
         **other_fields,
     ):
-
         other_fields.setdefault("is_superuser", True)
 
         if other_fields.get("is_superuser") is not True:
