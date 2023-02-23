@@ -1,8 +1,10 @@
 import uuid
+
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
-from v1.models.base import BaseCreateUpdateTimeModel
+
 from v1.constance import Constance
+from v1.models.base import BaseCreateUpdateTimeModel
 
 
 class AbstractJobSeeker(BaseCreateUpdateTimeModel):

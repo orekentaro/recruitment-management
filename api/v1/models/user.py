@@ -1,17 +1,24 @@
 import uuid
-from django.db import models
-from django.utils.translation import ugettext_lazy as _
-from v1.models.base import BaseCreateUpdateTimeModel
 
 from django.contrib.auth.models import (
     AbstractBaseUser,
-    PermissionsMixin,
     BaseUserManager,
+    PermissionsMixin,
 )
+from django.db import models
+from django.utils.translation import ugettext_lazy as _
+
+from v1.models.base import BaseCreateUpdateTimeModel
 
 
 class CustomAccountManager(BaseUserManager):
-    def create_superuser(self, email, name, password, **other_fields):
+    def create_superuser(
+        self,
+        email: str,
+        name: str,
+        password: str,
+        **other_fields,
+    ):
 
         other_fields.setdefault("is_superuser", True)
 
@@ -19,7 +26,13 @@ class CustomAccountManager(BaseUserManager):
             raise ValueError("Superuser must be assigned to is_superuser=True.")
         return self.create_user(email, name, password, **other_fields)
 
-    def create_user(self, email, name, password, **other_fields):
+    def create_user(
+        self,
+        email: str,
+        name: str,
+        password: str,
+        **other_fields,
+    ):
         if not email:
             raise ValueError(_("Please provide an email address"))
         email = self.normalize_email(email)
@@ -29,7 +42,13 @@ class CustomAccountManager(BaseUserManager):
         return user
 
 
-class User(AbstractBaseUser, PermissionsMixin, BaseCreateUpdateTimeModel):
+class User(
+    AbstractBaseUser,
+    PermissionsMixin,
+    BaseCreateUpdateTimeModel,
+):
+    """ユーザーモデル"""
+
     id = models.UUIDField(
         verbose_name=_("ID"), primary_key=True, default=uuid.uuid4, editable=False
     )

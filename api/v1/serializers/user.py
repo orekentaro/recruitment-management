@@ -1,10 +1,13 @@
-from django.utils.translation import ugettext_lazy as _
 from django.core.exceptions import ValidationError
+from django.utils.translation import ugettext_lazy as _
 from rest_framework import serializers
+
 from v1.models import User
 
 
 class CreateUserSerializer(serializers.ModelSerializer):
+    """ユーザー登録シリアライザ"""
+
     confirmation_password = serializers.CharField(
         write_only=True,
         required=True,
@@ -22,7 +25,7 @@ class CreateUserSerializer(serializers.ModelSerializer):
             raise ValidationError(_("パスワードは8文字以上で設定してください"))
         return data
 
-    def create(self, validated_data):
+    def create(self, validated_data: dict[str, str]) -> User:
         validated_data.pop("confirmation_password")
         password = validated_data.pop("password", None)
         instance = self.Meta.model(**validated_data)

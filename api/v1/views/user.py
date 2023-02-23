@@ -1,9 +1,9 @@
 from django.db import transaction
 from rest_framework import generics
+from rest_framework.views import Response
+
 from v1.models import User
 from v1.serializers import CreateUserSerializer
-
-from rest_framework.views import Response
 
 
 class UserViewSet(generics.CreateAPIView):
