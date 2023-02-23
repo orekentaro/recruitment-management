@@ -1,2 +1,2 @@
 from v1.serializers.login import LoginSerializer
-from v1.serializers.user import UserSerializer
+from v1.serializers.user import CreateUserSerializer

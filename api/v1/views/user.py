@@ -1,16 +1,18 @@
+from django.db import transaction
 from rest_framework import generics
 from v1.models import User
-from v1.serializers import UserSerializer
+from v1.serializers import CreateUserSerializer
 
 from rest_framework.views import Response
 
 
 class UserViewSet(generics.CreateAPIView):
     queryset = User.objects.all()
-    serializer_class = UserSerializer
+    serializer_class = CreateUserSerializer
 
+    @transaction.atomic
     def create(self, request):
-        serializer = UserSerializer(data=request.data)
+        serializer = CreateUserSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
-        super().create(serializer.validate_data)
+        serializer.save()
         return Response("OK")
