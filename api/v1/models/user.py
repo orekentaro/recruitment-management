@@ -52,10 +52,13 @@ class User(
         verbose_name=_("ID"), primary_key=True, default=uuid.uuid4, editable=False
     )
     name = models.CharField(verbose_name=_("名前"), max_length=100)
-    email = models.EmailField(verbose_name=_("メールアドレス"), unique=True, max_length=256)
-    new_email = models.EmailField(_("変更確認前のメールアドレス"), null=True, blank=True)
+    email = models.EmailField(
+        verbose_name=_("メールアドレス"), unique=True, max_length=256
+    )
+    new_email = models.EmailField(
+        _("変更確認前のメールアドレス"), null=True, blank=True
+    )
     password = models.CharField(verbose_name=_("パスワード"), max_length=100)
-    miss_count = models.IntegerField(_("ログイン失敗回数"), default=0)
 
     objects = CustomAccountManager()
     USERNAME_FIELD = "email"

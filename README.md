@@ -1,1 +1,1 @@
-# recruitment-management
+# django vue test
